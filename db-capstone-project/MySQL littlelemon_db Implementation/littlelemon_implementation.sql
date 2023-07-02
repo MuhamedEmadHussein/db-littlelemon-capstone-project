@@ -47,9 +47,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Littlelemon_db`.`MenuItems` (
   `ItemID` INT NOT NULL,
-  `Name` VARCHAR(200) NOT NULL,
-  `Type` VARCHAR(150) NOT NULL,
-  `Price` DECIMAL(10,2) NOT NULL,
+  `CourseName` VARCHAR(200) NOT NULL,
+  `StarterName` VARCHAR(200) NOT NULL,
+  `DesertName` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`ItemID`))
 ENGINE = InnoDB;
 
@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS `Littlelemon_db`.`Menus` (
   `MenuID` INT NOT NULL,
   `Cuisine` VARCHAR(200) NOT NULL,
   `ItemID` INT NOT NULL,
+  `Name` VARCHAR(250) NOT NULL,
   PRIMARY KEY (`MenuID`),
   INDEX `Menu_MenuItems_FK_idx` (`ItemID` ASC) ,
   CONSTRAINT `Menu_MenuItems_FK`
@@ -83,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `Littlelemon_db`.`Orders` (
   `MenuID` INT NOT NULL,
   PRIMARY KEY (`OrderID`),
   INDEX `Customers_Orders_FK_idx` (`CustomerID` ASC) ,
-  INDEX `Orders_Menus_FK_idx` (`MenuID` ASC),
+  INDEX `Orders_Menus_FK_idx` (`MenuID` ASC) ,
   CONSTRAINT `Customers_Orders_FK`
     FOREIGN KEY (`CustomerID`)
     REFERENCES `Littlelemon_db`.`Customers` (`CustmerID`)
@@ -135,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `Littlelemon_db`.`OrderDeliveryStatus` (
   `OrderID` INT NOT NULL,
   `StaffID` INT NOT NULL,
   PRIMARY KEY (`DeliveryID`),
-  INDEX `Orders_Delivery_FK_idx` (`OrderID` ASC) ,
+  INDEX `Orders_Delivery_FK_idx` (`OrderID` ASC),
   INDEX `Staff_Delivery_FK_idx` (`StaffID` ASC),
   CONSTRAINT `Orders_Delivery_FK`
     FOREIGN KEY (`OrderID`)
@@ -164,7 +165,7 @@ CREATE TABLE IF NOT EXISTS `Littlelemon_db`.`ContactDetails` (
   `StaffID` INT NOT NULL,
   PRIMARY KEY (`ContactID`),
   INDEX `Customer_Details_FK_idx` (`CustomerID` ASC) ,
-  INDEX `Staff_Details_FK_idx` (`StaffID` ASC),
+  INDEX `Staff_Details_FK_idx` (`StaffID` ASC) ,
   CONSTRAINT `Customer_Details_FK`
     FOREIGN KEY (`CustomerID`)
     REFERENCES `Littlelemon_db`.`Customers` (`CustmerID`)
